@@ -20,6 +20,7 @@ export const WindowModalFrame = forwardRef<ModalFrameMethods, Props>(({ children
 
   useImperativeHandle(ref, () => ({
     show,
+    hide,
   }));
 
   return (

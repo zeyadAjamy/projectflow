@@ -1,15 +1,18 @@
+import { setProjects } from "../store/actions/projectActions";
 import { Project, MessageType } from "../types";
-import { useAppSelector } from "./useStore";
+import { useAppSelector, useAppDispatch } from "./useStore";
 
 export const useLocalstorage = () => {
   const STORAGE_KEY = "projects";
-  const { projects, selectedProjectId } = useAppSelector((state) => state.projects);
+  const { selectedProjectId } = useAppSelector((state) => state.projects);
   const { tasks } = useAppSelector((state) => state.tasks);
+  const dispatch = useAppDispatch();
 
   const getProjects = (): Project[] => {
     try {
-      const projects = localStorage.getItem(STORAGE_KEY);
-      return projects ? JSON.parse(projects) : [];
+      const projects = JSON.parse(localStorage.getItem(STORAGE_KEY)!) as Project[];
+      dispatch(setProjects(projects));
+      return projects ? projects : [];
     } catch (e) {
       // In case of parsing errors
       console.error(e);
@@ -17,7 +20,7 @@ export const useLocalstorage = () => {
     }
   };
 
-  const syncProjects = (): MessageType => {
+  const syncProjects = (projects: Project[]): MessageType => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
       return {

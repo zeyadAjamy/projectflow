@@ -1,6 +1,5 @@
 import { Reducer } from "redux";
 import { ProjectActionTypes, ProjectActions, Project } from "../../types";
-
 interface ProjectState {
   selectedProjectId: string;
   projects: Project[];
@@ -22,10 +21,11 @@ export const projectsReducer: Reducer<ProjectState, ProjectActions> = (
         selectedProjectId: action.projectId,
       };
     case ProjectActionTypes.ADD_PROJECT:
-      return {
+      const newState = {
         ...state,
         projects: [...state.projects, action.project],
       };
+      return newState;
     case ProjectActionTypes.REMOVE_PROJECT:
       return {
         ...state,
@@ -34,12 +34,17 @@ export const projectsReducer: Reducer<ProjectState, ProjectActions> = (
     case ProjectActionTypes.EDIT_PROJECT_DETAILS:
       return {
         ...state,
-        tasks: state.projects.map((project) => {
+        projects: state.projects.map((project) => {
           if (project.id === action.project.id) {
             return action.project;
           }
           return project;
         }),
+      };
+    case ProjectActionTypes.SET_PROJECTS:
+      return {
+        ...state,
+        projects: action.projects,
       };
     default:
       return state;

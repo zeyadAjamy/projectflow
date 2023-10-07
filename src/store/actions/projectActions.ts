@@ -5,6 +5,7 @@ import {
   EditProjectAction,
   RemoveProjectAction,
   SelectProjectAction,
+  SetInitialProjectsAction
 } from "../../types";
 
 // Project Actions
@@ -27,3 +28,8 @@ export const selectProject = (projectId: string): SelectProjectAction => ({
   type: ProjectActionTypes.SELECT_PROJECT,
   projectId,
 });
+
+export const setProjects = (projects: Project[]): SetInitialProjectsAction => ({
+  type: ProjectActionTypes.SET_PROJECTS,
+  projects
+})

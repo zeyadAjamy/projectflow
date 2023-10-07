@@ -27,6 +27,7 @@ export enum ProjectActionTypes {
   REMOVE_PROJECT = "REMOVE_PROJECT",
   EDIT_PROJECT_DETAILS = "EDIT_PROJECT_DETAILS",
   SELECT_PROJECT = "SELECT_PROJECT",
+  SET_PROJECTS = "SET_PROJECTS",
 }
 
 // Action Types for Tasks
@@ -80,6 +81,10 @@ export interface EditProjectAction extends Action<ProjectActionTypes.EDIT_PROJEC
   project: Project;
 }
 
+export interface SetInitialProjectsAction extends Action<ProjectActionTypes.SET_PROJECTS> {
+  projects: Project[];
+}
+
 export interface SelectProjectAction extends Action<ProjectActionTypes.SELECT_PROJECT> {
   projectId: string;
 }
@@ -88,7 +93,8 @@ export type ProjectActions =
   | SelectProjectAction
   | AddProjectAction
   | RemoveProjectAction
-  | EditProjectAction;
+  | EditProjectAction
+  | SetInitialProjectsAction;
 
 export interface MessageType {
   ok: boolean;
@@ -97,6 +103,7 @@ export interface MessageType {
 
 export type ModalFrameMethods = {
   show: () => void;
+  hide: () => void;
 };
 
 export type TinyMceControlMethods = {

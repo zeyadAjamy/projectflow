@@ -7,13 +7,27 @@ import { getTimeShort, getDateMedium } from "../../helper-functions";
 import { Link } from "react-router-dom";
 import { WindowModalFrame } from "../window-modal";
 import { TinyMce } from "../TinyMce";
-import { useAppSelector } from "../../hooks/useStore";
+import { useAppDispatch, useAppSelector } from "../../hooks/useStore";
+import {
+  updateProject,
+  removeProject,
+  addProject,
+  selectProject,
+} from "../../store/actions/projectActions";
+import { useLocalstorage } from "../../hooks/useLocalstorage";
+import { v4 as uuidv4 } from "uuid";
 
 // Create a context for the window modal handler
-const ModalContext = createContext({ showModalWindow: () => {} });
+const ModalContext = createContext({ showModalWindow: () => {}, hideModalWindow: () => {} });
 
 const ProjectCard = ({ project }: { project: Project }) => {
   const { showModalWindow } = useContext(ModalContext);
+  const dispatch = useAppDispatch();
+
+  const editProject = () => {
+    showModalWindow();
+    dispatch(selectProject(project.id));
+  };
 
   return (
     <div className="project-card">
@@ -21,12 +35,12 @@ const ProjectCard = ({ project }: { project: Project }) => {
       <p>
         {getDateMedium(project.creationDate)} at {getTimeShort(project.creationDate)}
       </p>
-      <p> {project.description} </p>
+      <p dangerouslySetInnerHTML={{ __html: project.description }} />
       <div className="btn-group">
         <Link className="primary" to={`/tasks?project=${project.id}`}>
           Tasks
         </Link>
-        <button className="secondary" onClick={() => showModalWindow()}>
+        <button className="secondary" onClick={() => editProject()}>
           Edit
         </button>
       </div>
@@ -45,9 +59,14 @@ const ProjectList = ({ projects }: { projects: Project[] }) => {
 };
 
 const ProjectForm = ({ project }: { project?: Project }) => {
+  const { projects } = useAppSelector((state) => state.projects);
   const titleRef = useRef<HTMLInputElement>(null);
   const isNew = !project;
   const tinyMceRef = useRef<TinyMceControlMethods | null>(null);
+  const dispatch = useAppDispatch();
+
+  const { hideModalWindow } = useContext(ModalContext);
+  const { syncProjects } = useLocalstorage();
 
   const getTinyMceContent = () => {
     if (tinyMceRef.current) return tinyMceRef.current.log();
@@ -72,15 +91,42 @@ const ProjectForm = ({ project }: { project?: Project }) => {
   const editProjectHandler = () => {
     const validateResults = validate();
     if (isNew || !validateResults.state) return;
-    
+    const { title, description } = validateResults;
+    dispatch(
+      updateProject({
+        id: project.id,
+        title: title || "[Untitled]",
+        description: description || "<p> No description <p>",
+        creationDate: Date(),
+      })
+    );
+    hideModalWindow();
+    syncProjects(projects);
   };
 
   const deleteProjectHandler = () => {
     if (isNew) return;
+    dispatch(removeProject(project.id));
+    hideModalWindow();
+    syncProjects(projects);
   };
 
   const createProjectHandler = () => {
-    if (!isNew) return;
+    const validateResults = validate();
+    if (!isNew || !validateResults.state) return;
+    const { title, description } = validateResults;
+    const id = uuidv4();
+    dispatch(
+      addProject({
+        id,
+        title: title || "[Untitled]",
+        description: description || "<p> No description <p>",
+        creationDate: Date(),
+      })
+    );
+    hideModalWindow();
+    syncProjects(projects);
+    console.log(projects)
   };
 
   useEffect(() => {
@@ -121,10 +167,18 @@ export const Projects = () => {
   const { projects, selectedProjectId } = useAppSelector((state) => state.projects);
 
   const ref = useRef<ModalFrameMethods | null>(null);
-
+  const { getProjects } = useLocalstorage();
   const showModalWindow = () => {
     if (ref.current) ref.current.show();
   };
+
+  const hideModalWindow = () => {
+    if (ref.current) ref.current.hide();
+  };
+
+  useEffect(() => {
+    getProjects();
+  }, []);
 
   return (
     <div className="container__projects">
@@ -141,7 +195,7 @@ export const Projects = () => {
             <span>New Project</span>
           </button>
         </div>
-        <ModalContext.Provider value={{ showModalWindow }}>
+        <ModalContext.Provider value={{ showModalWindow, hideModalWindow }}>
           {projects.length > 0 ? (
             <ProjectList projects={projects} />
           ) : (
