@@ -59,14 +59,13 @@ const ProjectList = ({ projects }: { projects: Project[] }) => {
 };
 
 const ProjectForm = ({ project }: { project?: Project }) => {
-  const { projects } = useAppSelector((state) => state.projects);
   const titleRef = useRef<HTMLInputElement>(null);
   const isNew = !project;
   const tinyMceRef = useRef<TinyMceControlMethods | null>(null);
   const dispatch = useAppDispatch();
 
   const { hideModalWindow } = useContext(ModalContext);
-  const { syncProjects } = useLocalstorage();
+  const { editProjectLocal, pushProjectLocal, deleteProjectLocal } = useLocalstorage();
 
   const getTinyMceContent = () => {
     if (tinyMceRef.current) return tinyMceRef.current.log();
@@ -92,23 +91,27 @@ const ProjectForm = ({ project }: { project?: Project }) => {
     const validateResults = validate();
     if (isNew || !validateResults.state) return;
     const { title, description } = validateResults;
-    dispatch(
-      updateProject({
-        id: project.id,
-        title: title || "[Untitled]",
-        description: description || "<p> No description <p>",
-        creationDate: Date(),
-      })
-    );
+    const updatedProject = {
+      ...project,
+      title: title || "Untitled",
+      description: description || "<p></p>",
+    };
+    // Update the store
+    dispatch(updateProject(updatedProject));
+    // Update the localstorage
+    editProjectLocal(project.id, updatedProject);
+    // close the modal window
     hideModalWindow();
-    syncProjects(projects);
   };
 
   const deleteProjectHandler = () => {
     if (isNew) return;
+    // Update the store
     dispatch(removeProject(project.id));
+    // Update the localstorage
+    deleteProjectLocal(project.id);
+    // close the modal window
     hideModalWindow();
-    syncProjects(projects);
   };
 
   const createProjectHandler = () => {
@@ -116,17 +119,18 @@ const ProjectForm = ({ project }: { project?: Project }) => {
     if (!isNew || !validateResults.state) return;
     const { title, description } = validateResults;
     const id = uuidv4();
-    dispatch(
-      addProject({
-        id,
-        title: title || "[Untitled]",
-        description: description || "<p> No description <p>",
-        creationDate: Date(),
-      })
-    );
+    const newProject = {
+      id,
+      title: title || "[Untitled]",
+      description: description || "<p> No description <p>",
+      creationDate: Date(),
+    };
+    // Update the store
+    dispatch(addProject(newProject));
+    // Update the localstorage
+    pushProjectLocal(newProject);
+    // close the modal window
     hideModalWindow();
-    syncProjects(projects);
-    console.log(projects)
   };
 
   useEffect(() => {
@@ -167,7 +171,7 @@ export const Projects = () => {
   const { projects, selectedProjectId } = useAppSelector((state) => state.projects);
 
   const ref = useRef<ModalFrameMethods | null>(null);
-  const { getProjects } = useLocalstorage();
+  const { getProjectsLocal } = useLocalstorage();
   const showModalWindow = () => {
     if (ref.current) ref.current.show();
   };
@@ -177,7 +181,7 @@ export const Projects = () => {
   };
 
   useEffect(() => {
-    getProjects();
+    getProjectsLocal();
   }, []);
 
   return (
