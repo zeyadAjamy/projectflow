@@ -1,0 +1,26 @@
+.error-page{
+     width: 100vw;
+     height: 100vh;
+     display: flex;
+     flex-flow: column;
+     align-items: center;
+     justify-content: center;
+}
+
+.error-page h1 {
+     font-size: 50px;
+}
+
+.error-page p {
+     margin-top: -20px;
+     font-size: 20px;
+     font-weight: 300;
+}
+
+.error-page a {
+     background-color: rgb(9, 60, 136);
+     text-decoration: none;
+     color: white;
+     padding: 10px 15px;
+     border-radius: 6px;
+}

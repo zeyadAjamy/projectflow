@@ -1,0 +1,36 @@
+.container {
+  box-shadow: 0.5px 0.5px 5px rgba(128, 128, 128, 0.253);
+}
+
+.header {
+  display: flex;
+  margin: 0px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  width: 70%;
+  margin: auto;
+}
+
+.brand {
+  font-weight: 400;
+  font-size: large;
+  text-decoration: unset;
+  color: unset;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+}
+
+.user img {
+  width: 20px;
+}
+
+.user span {
+  font-weight: 400;
+  font-size: medium;
+}

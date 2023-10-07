@@ -1,0 +1,143 @@
+.container__projects {
+  padding: 20px 0px;
+}
+
+.projects {
+  width: 70%;
+  margin: auto;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.projects h1 {
+  font-size: clamp(50px, 4vw, 400px);
+  margin-bottom: 0px;
+}
+
+.projects p {
+  font-weight: 200;
+  font-size: 16px;
+  line-height: 23px;
+  text-align: justify;
+}
+
+.projects button {
+  width: fit-content;
+  font-size: 16px;
+  border: unset;
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.project-card {
+  padding: 20px 40px;
+  background-color: rgba(247, 247, 247, 0.4);
+}
+
+.project-card:hover {
+  scale: 1.05;
+  cursor: pointer;
+  transition: all 150ms;
+}
+
+.project-card p {
+  text-align: left;
+}
+
+.btn-group {
+  display: flex;
+  gap: 10px;
+}
+
+.secondary {
+  background-color: transparent;
+  border: 1px solid rgba(233, 233, 233, 0.5) !important;
+  border-radius: 5px;
+}
+
+.primary {
+  width: fit-content;
+  text-decoration: unset;
+  color: unset;
+  background-color: rgba(128, 128, 128, 0.096);
+  font-size: 16px;
+  border: unset;
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.secondary:hover {
+  width: fit-content;
+  font-size: 16px;
+  border: unset;
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 100ms;
+  background-color: rgba(233, 233, 233, 0.5);
+}
+
+.project-list {
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  margin: 40px 0px;
+  gap: 20px;
+}
+
+.form-div {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.form-div label {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.form-div input {
+  border: unset;
+  background-color: rgba(247, 247, 247, 0.8);
+  padding: 20px;
+  font-size: 15px;
+  font-weight: 100;
+  margin-top: 10px;
+  min-width: 300px;
+  margin-top: 0px;
+}
+
+.form-div input:focus{
+  outline: unset;
+  border-bottom: 2px solid black;
+  transition: all 10ms;
+}
+
+.form-div textarea {
+  min-height: 200px;
+}
+/* Media query for medium-sized screens */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .project-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Media query for large screens */
+@media (min-width: 1024px) {
+  .project-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Media query for mobile devices */
+@media (max-width: 767px) {
+  .project-list {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

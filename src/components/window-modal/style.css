@@ -1,0 +1,32 @@
+.window-modal-frame {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  backdrop-filter: blur(10px);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-inner-frame {
+     position: relative;
+     padding: 40px;
+     background-color: white;
+     border-radius: 5px;
+     box-shadow: 1px 1px 5px rgba(128, 128, 128, 0.219);
+}
+
+.modal-inner-frame .close-button {
+     position: absolute;
+     top: 10px;
+     right: 10px;
+     padding: 10px;
+     cursor: pointer;
+}
+
+.modal-inner-frame .children {
+     margin-top: 30px;
+}
