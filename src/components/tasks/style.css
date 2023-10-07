@@ -1,0 +1,24 @@
+.btn-group a {
+     text-decoration: unset;
+     color: unset;
+     padding: 10px;
+     display: flex;
+     align-items: center;
+     gap: 5px
+}
+
+.project-brief{
+     display: flex;
+     gap: 10px;
+     align-items: center;
+     margin: 0px 0px 10px 0px;
+     font-size: 15px;
+}
+
+.project-brief .action {
+     display: flex;
+     align-items: center;
+     gap: 5px;
+     cursor: pointer;
+     border: 0px;
+}

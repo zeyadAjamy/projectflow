@@ -1,10 +1,9 @@
 import "./style.css";
 import { useRef, useContext, useEffect } from "react";
 import { Project, TinyMceControlMethods } from "../../types";
-import { TinyMce } from "../TinyMce";
+import { TinyMce } from "../tinymce";
 import { useAppDispatch } from "../../hooks/useStore";
 import { updateProject, removeProject, addProject } from "../../store/actions/projectActions";
-import { useLocalstorage } from "../../hooks/useLocalstorage";
 import { v4 as uuidv4 } from "uuid";
 import { ModalContext } from "./index";
 
@@ -15,7 +14,6 @@ export const ProjectForm = ({ project }: { project?: Project }) => {
   const dispatch = useAppDispatch();
 
   const { hideModalWindow } = useContext(ModalContext);
-  const { editProjectLocal, pushProjectLocal, deleteProjectLocal } = useLocalstorage();
 
   const getTinyMceContent = () => {
     if (tinyMceRef.current) return tinyMceRef.current.log();
@@ -48,8 +46,6 @@ export const ProjectForm = ({ project }: { project?: Project }) => {
     };
     // Update the store
     dispatch(updateProject(updatedProject));
-    // Update the localstorage
-    editProjectLocal(project.id, updatedProject);
     // close the modal window
     hideModalWindow();
   };
@@ -58,8 +54,6 @@ export const ProjectForm = ({ project }: { project?: Project }) => {
     if (isNew) return;
     // Update the store
     dispatch(removeProject(project.id));
-    // Update the localstorage
-    deleteProjectLocal(project.id);
     // close the modal window
     hideModalWindow();
   };
@@ -77,8 +71,6 @@ export const ProjectForm = ({ project }: { project?: Project }) => {
     };
     // Update the store
     dispatch(addProject(newProject));
-    // Update the localstorage
-    pushProjectLocal(newProject);
     // close the modal window
     hideModalWindow();
   };

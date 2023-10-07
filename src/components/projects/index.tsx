@@ -5,7 +5,6 @@ import { NotFound } from "../not-found";
 import { ModalFrameMethods } from "../../types";
 import { WindowModalFrame } from "../window-modal";
 import { useAppSelector } from "../../hooks/useStore";
-import { useLocalstorage } from "../../hooks/useLocalstorage";
 import { ProjectList } from "./project-list";
 import { ProjectForm } from "./project-form";
 
@@ -14,9 +13,8 @@ export const ModalContext = createContext({ showModalWindow: () => {}, hideModal
 
 export const Projects = () => {
   const { projects, selectedProjectId } = useAppSelector((state) => state.projects);
-
   const ref = useRef<ModalFrameMethods | null>(null);
-  const { getProjectsLocal } = useLocalstorage();
+
   const showModalWindow = () => {
     if (ref.current) ref.current.show();
   };
@@ -24,10 +22,6 @@ export const Projects = () => {
   const hideModalWindow = () => {
     if (ref.current) ref.current.hide();
   };
-
-  useEffect(() => {
-    getProjectsLocal();
-  }, []);
 
   return (
     <div className="container__projects">

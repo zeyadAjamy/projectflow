@@ -17,10 +17,12 @@ const ProjectCard = ({ project }: { project: Project }) => {
 
   return (
     <div className="project-card">
-      <h3> {project.title} </h3>
-      <p>
-        {getDateMedium(project.creationDate)} at {getTimeShort(project.creationDate)}
-      </p>
+      <div>
+        <h3> {project.title} </h3>
+        <p>
+          {getDateMedium(project.creationDate)} at {getTimeShort(project.creationDate)}
+        </p>
+      </div>
       <p dangerouslySetInnerHTML={{ __html: project.description }} />
       <div className="btn-group">
         <Link className="primary" to={`/tasks?project=${project.id}`}>
