@@ -87,22 +87,25 @@ export const TaskForm = ({ task }: { task?: Task }) => {
   const editTaskHandler = () => {
     const validateResults = validate();
     if (isNew || !validateResults.state) return;
-    const { title, description } = validateResults;
-    const updatedProject = {
-      ...task,
-      title: title || "Untitled",
-      description: description || "<p></p>",
+    const { title, description, priority, status } = validateResults;
+    const updatedTask: Task = {
+      ...task!,
+      title: title || "[Untitled]",
+      description: description || "<p> No description <p>",
+      priority: priority || "Low",
+      status: status || "Queue",
+      completionDate: status === "Done" ? Date() : undefined,
     };
     // Update the store
-    // dispatch(updateProject(updatedProject));
-    // close the modal window
+    dispatch(updateTask(selectedProjectId, updatedTask));
+    // close the modal window 
     hideModalWindow();
   };
 
   const deleteTaskHandler = () => {
     if (isNew) return;
     // Update the store
-    // dispatch(removeProject(task.id));
+    dispatch(removeTask(selectedProjectId, task!.id));
     // close the modal window
     hideModalWindow();
   };

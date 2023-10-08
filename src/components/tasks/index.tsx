@@ -13,11 +13,17 @@ import { TaskForm } from "./tasks-form";
 import { selectProject } from "../../store/actions/projectActions";
 
 // Create a context for the window modal handler
-export const ModalContext = createContext({ showModalWindow: () => {}, hideModalWindow: () => {} });
+export const ModalContext = createContext({ showModalWindow: () => {}, hideModalWindow: () => {}, setTaskHandler: (taskId: string) => {} });
 
 export const Tasks = () => {
   const ref = useRef<ModalFrameMethods | null>(null);
   const dispatch = useAppDispatch();
+
+  // This state is used to set the task id to be edited form the task element component
+  // The reason is that I wont to expose the setTaskHandler method which changes the state
+  // making it less boilerplate and leaving the state in one place as long as I am leaving
+  // the modal window in the same component
+  const [selectedTask, setSelectedTask] = useState<Task>();
 
   // Project Selection
   const { projects } = useAppSelector((state) => state.projects);
@@ -36,6 +42,10 @@ export const Tasks = () => {
     if (ref.current) ref.current.hide();
   };
 
+  const setTaskHandler = (taskId: string) => {
+    const task = projects[projectIndex]?.tasks.find((t) => t.id === taskId);
+    setSelectedTask(task);
+  };
   // Project Id validation
   const validateProject = (projectId: string | null): number => {
     if (!projectId || projectId.trim() === "") {
@@ -180,7 +190,7 @@ export const Tasks = () => {
             </span>
           </div>
         </div>
-        <ModalContext.Provider value={{ showModalWindow, hideModalWindow }}>
+        <ModalContext.Provider value={{ showModalWindow, hideModalWindow, setTaskHandler }}>
           {projectIndex < 0 ||
           !projects[projectIndex]?.tasks ||
           projects[projectIndex].tasks.length > 0 ? (
@@ -189,8 +199,7 @@ export const Tasks = () => {
             <NotFound message="There is no tasks found! Try to add one." />
           )}
           <WindowModalFrame ref={ref}>
-            <div></div>
-            <TaskForm />
+            <TaskForm task={selectedTask} />
           </WindowModalFrame>
         </ModalContext.Provider>
       </div>

@@ -71,7 +71,7 @@ select {
   gap: 8px;
 }
 
-.task-title{
+.task-title {
   font-size: 16px;
   font-weight: 600;
   padding: 0px;
@@ -108,7 +108,6 @@ select {
   color: #333;
 }
 
-
 .task-comment-form {
   display: flex;
   gap: 0px;
@@ -138,6 +137,54 @@ select {
   font-weight: 100;
 }
 
+.task-comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.task-comment-author {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.task-comment-date {
+  font-size: 12px;
+  font-weight: 400;
+  color: #777;
+  margin-left: 10px;
+}
+
+.task-comment-text {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  margin: 0px !important;
+}
+
+.comment-brief {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.comment-fold {
+  background-color: white;
+  border: unset;
+  cursor: pointer;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  color: #777;
+  padding: 0px !important;
+}
+
+.task-time {
+  font-size: 12px;
+  font-weight: 500;
+  color: #777;
+  display: flex;
+  flex-direction: column;
+}
 @media screen and (max-width: 768px) {
   .table {
     grid-template-columns: 1fr;

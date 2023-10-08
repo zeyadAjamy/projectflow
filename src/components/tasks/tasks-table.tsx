@@ -11,6 +11,7 @@ type Props = {
 export const TasksTable = ({ tasks }: Props) => {
   const dispatch = useAppDispatch();
   const { selectedProjectId } = useAppSelector((state) => state.projects);
+  
   const columns = {
     Queue: {
       id: "Queue",
