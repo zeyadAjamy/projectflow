@@ -11,9 +11,14 @@ import { getDateMedium, getTimeShort } from "../../helper-functions";
 import { TasksTable } from "./tasks-table";
 import { TaskForm } from "./tasks-form";
 import { selectProject } from "../../store/actions/projectActions";
+import { Helmet } from "react-helmet-async";
 
 // Create a context for the window modal handler
-export const ModalContext = createContext({ showModalWindow: () => {}, hideModalWindow: () => {}, setTaskHandler: (taskId: string) => {} });
+export const ModalContext = createContext({
+  showModalWindow: () => {},
+  hideModalWindow: () => {},
+  setTaskHandler: (taskId: string) => {},
+});
 
 export const Tasks = () => {
   const ref = useRef<ModalFrameMethods | null>(null);
@@ -173,6 +178,15 @@ export const Tasks = () => {
 
   return (
     <div className="container__projects">
+      <Helmet>
+        <title> My Todo | Tasks </title>
+        <meta
+          name="description"
+          content="Tasks are the basic unit of action in My Todo. You can add tasks to any project or subtask to any task. Tasks can be organized in a variety of ways. You can assign tasks to other people, or even to yourself. You can also add due dates, tags, priority, and notes to your tasks."
+        />
+        <meta name="author" content="Zeyad Alagamy" />
+      </Helmet>
+
       <div className="projects">
         <div>
           <h1> Your Tasks </h1>

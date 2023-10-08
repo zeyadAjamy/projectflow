@@ -7,8 +7,8 @@ import { WindowModalFrame } from "../window-modal";
 import { useAppSelector } from "../../hooks/useStore";
 import { ProjectList } from "./project-list";
 import { ProjectForm } from "./project-form";
+import { Helmet } from 'react-helmet-async';
 
-// Create a context for the window modal handler
 export const ModalContext = createContext({ showModalWindow: () => {}, hideModalWindow: () => {} });
 
 export const Projects = () => {
@@ -25,6 +25,12 @@ export const Projects = () => {
 
   return (
     <div className="container__projects">
+      <Helmet>
+        <title>My Todo | Projects</title>
+        <meta name="description" content="Projects help you stay organized by grouping related tasks together, while subtasks allow you to break down complex goals into manageable steps, streamlining your task management experience." />
+        <meta name="author" content="Zeyad Alagamy" />
+      </Helmet>
+
       <div className="projects">
         <div>
           <h1> Your Projects </h1>
