@@ -185,6 +185,19 @@ select {
   display: flex;
   flex-direction: column;
 }
+
+.column-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.column-header button{
+  border: 0px;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 5px !important;
+}
 @media screen and (max-width: 768px) {
   .table {
     grid-template-columns: 1fr;

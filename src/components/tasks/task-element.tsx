@@ -98,7 +98,7 @@ const TaskTime = ({ task }: { task: Task }) => (
 );
 
 export const TaskElement = ({ index, task }: Props) => {
-  const { showModalWindow, hideModalWindow, setTaskHandler } = useContext(ModalContext);
+  const { showModalWindow, setTaskHandler } = useContext(ModalContext);
   const dispatch = useAppDispatch();
   const { selectedProjectId } = useAppSelector((state) => state.projects);
 
