@@ -32,7 +32,6 @@ export const TasksTable = ({ tasks }: Props) => {
   const onDragEndHandler = (result: DropResult) => {
     const { source, destination } = result;
     if (!destination) return;
-    if (source.droppableId === destination.droppableId) return;
     // Change the status of the task
     const task = columns[source.droppableId as keyof typeof columns].tasks[source.index];
     if (!task) return;
