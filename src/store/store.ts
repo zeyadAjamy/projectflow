@@ -1,12 +1,10 @@
 import { createStore, combineReducers } from "redux";
 import { projectsReducer } from "./reducers/projectsReducer";
-import { tasksReducer } from "./reducers/tasksReducer";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 const rootReducer = combineReducers({
   projects: projectsReducer,
-  tasks: tasksReducer,
 });
 
 const persistConfig = {

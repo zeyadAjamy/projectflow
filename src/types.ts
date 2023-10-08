@@ -5,13 +5,17 @@ export interface Task {
   id: string;
   title: string;
   description: string;
-  creationDate: Date;
-  timeInProgress: number;
-  completionDate: Date;
+  creationDate: string;
+  completionDate?: string;
   priority: "High" | "Medium" | "Low";
-  files: string[];
-  state: "Queue" | "Progress" | "Done";
-  comments: string[];
+  files?: string[];
+  status: "Queue" | "Progress" | "Done";
+  comments: {
+    id: string;
+    author: string;
+    date: string;
+    text: string;
+  }[];
 }
 
 export interface Project {
@@ -19,6 +23,7 @@ export interface Project {
   title: string;
   description: string;
   creationDate: string;
+  tasks: Task[];
 }
 
 // Action types for projects
@@ -28,45 +33,10 @@ export enum ProjectActionTypes {
   EDIT_PROJECT_DETAILS = "EDIT_PROJECT_DETAILS",
   SELECT_PROJECT = "SELECT_PROJECT",
   SET_PROJECTS = "SET_PROJECTS",
-}
-
-// Action Types for Tasks
-export enum TaskActionTypes {
   ADD_TASK = "ADD_TASK",
   REMOVE_TASK = "REMOVE_TASK",
-  EDIT_TASK_DETAILS = "EDIT_TASK_DETAILS",
-  CHANGE_TASK_STATUS = "CHANGE_TASK_STATUS",
-  SELECT_TASK = "SELECT_TASH",
+  UPDATE_TASK = "UPDATE_TASK",
 }
-
-// Task Actions Definitions
-export interface AddTaskAction extends Action<TaskActionTypes.ADD_TASK> {
-  task: Task;
-}
-
-export interface RemoveTaskAction extends Action<TaskActionTypes.REMOVE_TASK> {
-  taskId: string;
-}
-
-export interface UpdateTaskAction extends Action<TaskActionTypes.EDIT_TASK_DETAILS> {
-  task: Task;
-}
-
-export interface ChangeTaskStatusAction extends Action<TaskActionTypes.CHANGE_TASK_STATUS> {
-  taskId: string;
-  state: "Queue" | "Progress" | "Done";
-}
-
-export interface SelectTaskAction extends Action<TaskActionTypes.SELECT_TASK> {
-  taskId: string;
-}
-
-export type TaskActions =
-  | AddTaskAction
-  | RemoveTaskAction
-  | UpdateTaskAction
-  | ChangeTaskStatusAction
-  | SelectTaskAction;
 
 // Project Actions Definitions
 export interface AddProjectAction extends Action<ProjectActionTypes.ADD_PROJECT> {
@@ -89,12 +59,31 @@ export interface SelectProjectAction extends Action<ProjectActionTypes.SELECT_PR
   projectId: string;
 }
 
+export interface AddTaskAction extends Action<ProjectActionTypes.ADD_TASK> {
+  projectId: string;
+  task: Task;
+}
+
+export interface RemoveTaskAction extends Action<ProjectActionTypes.REMOVE_TASK> {
+  projectId: string;
+  taskId: string;
+}
+
+export interface UpdateTaskAction extends Action<ProjectActionTypes.UPDATE_TASK> {
+  projectId: string;
+  task: Task;
+  newIndex?: number;
+}
+
 export type ProjectActions =
   | SelectProjectAction
   | AddProjectAction
   | RemoveProjectAction
   | EditProjectAction
-  | SetInitialProjectsAction;
+  | SetInitialProjectsAction
+  | AddTaskAction
+  | RemoveTaskAction
+  | UpdateTaskAction;
 
 export interface MessageType {
   ok: boolean;

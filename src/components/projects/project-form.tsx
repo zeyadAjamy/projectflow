@@ -65,6 +65,7 @@ export const ProjectForm = ({ project }: { project?: Project }) => {
     const id = uuidv4();
     const newProject = {
       id,
+      tasks: [],
       title: title || "[Untitled]",
       description: description || "<p> No description <p>",
       creationDate: Date(),
