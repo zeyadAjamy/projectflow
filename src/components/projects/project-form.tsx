@@ -78,7 +78,7 @@ export const ProjectForm = ({ project }: { project?: Project }) => {
 
   useEffect(() => {
     if (!isNew) {
-      const { title, description } = project;
+      const { title } = project;
       titleRef.current!.value = title;
     }
   }, [isNew, project]);

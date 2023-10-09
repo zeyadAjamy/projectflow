@@ -1,5 +1,5 @@
 import "./style.css";
-import { useRef, createContext, useEffect } from "react";
+import { useRef, createContext } from "react";
 import { AiOutlinePlus as AddIcon } from "react-icons/ai";
 import { NotFound } from "../not-found";
 import { ModalFrameMethods } from "../../types";

@@ -1,7 +1,6 @@
 import "./style.css";
-import { useRef, createContext, useEffect, useState } from "react";
+import { useRef, createContext, useEffect, useState, useCallback } from "react";
 import { AiOutlinePlus as AddIcon } from "react-icons/ai";
-import { IoChevronBackOutline as BackIcon } from "react-icons/io5";
 import { NotFound } from "../not-found";
 import { ModalFrameMethods, Task } from "../../types";
 import { WindowModalFrame } from "../window-modal";
@@ -52,7 +51,7 @@ export const Tasks = () => {
     setSelectedTask(task);
   };
   // Project Id validation
-  const validateProject = (projectId: string | null): number => {
+  const validateProject = useCallback((projectId: string | null): number => {
     if (!projectId || projectId.trim() === "") {
       redirectDocument("/");
       return -1;
@@ -65,7 +64,7 @@ export const Tasks = () => {
       return -1;
     }
     return index;
-  };
+  }, [dispatch, projects]);
 
   const onCreateTask = () => {
     setSelectedTask(undefined);
@@ -76,7 +75,7 @@ export const Tasks = () => {
     const index = validateProject(projectId);
     if (index < 0) return;
     setProjectIndex(index);
-  }, [projectId]);
+  }, [projectId, validateProject]);
 
   return (
     <div className="container__projects">

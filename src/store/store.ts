@@ -16,7 +16,8 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = createStore(persistedReducer);
 const persistor = persistStore(store);
+const exportObject = { store, persistor };
 
-export default { store, persistor };
+export default exportObject;
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

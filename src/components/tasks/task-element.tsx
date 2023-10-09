@@ -84,14 +84,14 @@ const Comment = ({ task }: { task: Task }) => {
 const TaskTime = ({ task }: { task: Task }) => (
   <div className="task-time">
     <span className="task-create-time">
-      {task.status == "Done"
+      {task.status === "Done"
         ? `${getDateMedium(task.creationDate)} at ${getTimeShort(
             task.creationDate
           )} : ${getDateMedium(task.completionDate!)} at ${getTimeShort(task.completionDate!)}`
-        : task.status != "Progress" && `Created at ${getDateMedium(task.creationDate)}`}
+        : task.status !== "Progress" && `Created at ${getDateMedium(task.creationDate)}`}
     </span>
     <span className="task-time-progress">
-      {task.status == "Progress" &&
+      {task.status === "Progress" &&
         `In progress for ${getTimeDifferece(task.creationDate).hoursStr}:${
           getTimeDifferece(task.creationDate).minutesStr
         } hours`}

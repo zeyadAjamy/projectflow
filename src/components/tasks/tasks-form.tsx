@@ -134,7 +134,7 @@ export const TaskForm = ({ task }: { task?: Task }) => {
 
   useEffect(() => {
     if (!isNew) {
-      const { title, description } = task;
+      const { title } = task;
       titleRef.current!.value = title;
     }
   }, [isNew, task]);
