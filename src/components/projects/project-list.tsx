@@ -25,7 +25,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
       </div>
       <p dangerouslySetInnerHTML={{ __html: project.description }} />
       <div className="btn-group">
-        <Link className="primary" to={`/tasks?project=${project.id}`}>
+        <Link className="primary" to={`/todo/tasks?project=${project.id}`}>
           Tasks
         </Link>
         <button className="secondary" onClick={() => editProject()}>

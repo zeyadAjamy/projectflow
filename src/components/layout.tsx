@@ -10,12 +10,12 @@ import { HelmetProvider } from "react-helmet-async";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/todo",
     element: <Projects />,
     errorElement: <ErrorPage />,
   },
   {
-    path: "/tasks",
+    path: "/todo/tasks",
     element: <Tasks />,
     errorElement: <ErrorPage />,
   },
@@ -26,7 +26,7 @@ export const Layout = () => {
     <Provider store={storeConfig.store}>
       <HelmetProvider>
         <PersistGate loading={null} persistor={storeConfig.persistor}>
-          <BrowserRouter>
+          <BrowserRouter basename="/todo">
             <Header />
           </BrowserRouter>
           <RouterProvider router={router} />
