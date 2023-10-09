@@ -67,6 +67,11 @@ export const Tasks = () => {
     return index;
   };
 
+  const onCreateTask = () => {
+    setSelectedTask(undefined);
+    showModalWindow();
+  }
+
   useEffect(() => {
     const index = validateProject(projectId);
     if (index < 0) return;
@@ -95,7 +100,7 @@ export const Tasks = () => {
               {getTimeShort(projects[projectIndex]?.creationDate || "2023/10/10 10:30:0")}
             </span>
             <span>|</span>
-            <span onClick={() => showModalWindow()} className="action">
+            <span onClick={onCreateTask} className="action">
               <AddIcon />
               <span>New Task</span>
             </span>

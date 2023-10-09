@@ -7,7 +7,7 @@ import { ModalContext } from "./index";
 import { useAppDispatch, useAppSelector } from "../../hooks/useStore";
 import { removeTask, updateTask } from "../../store/actions/projectActions";
 import { v4 as uuidv4 } from "uuid";
-import { FileUpload } from "./file-upload";
+import { FileUpload } from "../file-upload";
 import { AiFillEye as FoldIcon, AiFillEyeInvisible as UnFoldIcon } from "react-icons/ai";
 
 type Props = {

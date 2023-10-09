@@ -1,9 +1,9 @@
 import "./style.css";
 import { useDropzone } from "react-dropzone";
 import { useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../hooks/useStore";
-import { updateTask } from "../../../store/actions/projectActions";
-import { Task } from "../../../types";
+import { useAppDispatch, useAppSelector } from "../../hooks/useStore";
+import { updateTask } from "../../store/actions/projectActions";
+import { Task } from "../../types";
 
 export const FileUpload = ({ taskId }: { taskId: string }) => {
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({ maxFiles: 1 });
