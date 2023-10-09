@@ -26,7 +26,7 @@ jobs:
 
       - name: Deploy to GitHub Pages
         run: |
-          git config user.name "${{ github.actor }}"
+          git config user.name "zeyadAjamy"
           git config user.email "${{ github.actor }}@users.noreply.github.com"
           echo "machine github.com login ${{ secrets.GH_TOKEN }}" > ~/.netrc
           npm run deploy
