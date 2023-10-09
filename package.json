@@ -59,6 +59,9 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@types/react-beautiful-dnd": "^13.1.5",
     "@types/uuid": "^9.0.5",
+    "eslint": "^8.51.0",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-react": "^7.33.2",
     "gh-pages": "^6.0.0"
   }
 }
