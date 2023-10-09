@@ -4,16 +4,18 @@ import { AiOutlinePlus as AddIcon } from "react-icons/ai";
 import { NotFound } from "../not-found";
 import { ModalFrameMethods } from "../../types";
 import { WindowModalFrame } from "../window-modal";
-import { useAppSelector } from "../../hooks/useStore";
+import { useAppDispatch, useAppSelector } from "../../hooks/useStore";
 import { ProjectList } from "./project-list";
 import { ProjectForm } from "./project-form";
 import { Helmet } from 'react-helmet-async';
+import { selectProject } from "../../store/actions/projectActions";
 
 export const ModalContext = createContext({ showModalWindow: () => {}, hideModalWindow: () => {} });
 
 export const Projects = () => {
   const { projects, selectedProjectId } = useAppSelector((state) => state.projects);
   const ref = useRef<ModalFrameMethods | null>(null);
+  const dispatch = useAppDispatch();
 
   const showModalWindow = () => {
     if (ref.current) ref.current.show();
@@ -22,6 +24,11 @@ export const Projects = () => {
   const hideModalWindow = () => {
     if (ref.current) ref.current.hide();
   };
+
+  const handleNewProject = () => {
+    dispatch(selectProject(''));
+    showModalWindow();
+  }
 
   return (
     <div className="container__projects">
@@ -39,7 +46,7 @@ export const Projects = () => {
             allow you to break down complex goals into manageable steps, streamlining your task
             management experience.
           </p>
-          <button onClick={() => showModalWindow()}>
+          <button onClick={handleNewProject}>
             <AddIcon />
             <span>New Project</span>
           </button>

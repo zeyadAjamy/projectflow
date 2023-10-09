@@ -5,7 +5,7 @@ import "./style.css";
 export const NotFound = ({ message }: { message?: string }) => {
   return (
     <div className="not-found">
-      <Lottie animationData={notFound} play loop={false} style={{ width: "70%" }} />
+      <Lottie animationData={notFound} play loop={false} style={{ width: "50%" }} />
       <p> {message || "No Results found!"} </p>
     </div>
   );
