@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/useStore";
 import { removeTask, updateTask } from "../../store/actions/projectActions";
 import { v4 as uuidv4 } from "uuid";
 import { FileUpload } from "./file-upload";
+import { AiFillEye as FoldIcon, AiFillEyeInvisible as UnFoldIcon } from "react-icons/ai";
 
 type Props = {
   task: Task;
@@ -100,6 +101,8 @@ const TaskTime = ({ task }: { task: Task }) => (
 
 const TaskFiles = ({ task }: { task: Task }) => {
   const [filesFoldState, setFilesFoldState] = useState<string>("Show files");
+  const dispatch = useAppDispatch();
+  const { selectedProjectId } = useAppSelector((state) => state.projects);
 
   const handleDownload = (fileContent: string, fileName: string) => {
     if (fileContent) {
@@ -110,6 +113,16 @@ const TaskFiles = ({ task }: { task: Task }) => {
       a.click();
       document.body.removeChild(a);
     }
+  };
+
+  const handleRemoveFile = (filePath: string) => {
+    // Update the store
+    const updatedTask = {
+      ...task,
+      files: task.files!.filter((file) => file.path !== filePath),
+    };
+
+    dispatch(updateTask(selectedProjectId, updatedTask));
   };
 
   const onFoldFiles = () => {
@@ -134,27 +147,25 @@ const TaskFiles = ({ task }: { task: Task }) => {
         </button>
       </div>
       {filesFoldState === "Hide files" && (
-        <>
-          <div className="task-comments-list">
-            {task.files!.map((file) => (
-              <div className="task-file">
-                <div>
-                  <button
-                    className="task-file-btn"
-                    onClick={() => handleDownload(file.path, file.name)}>
-                    {file.name || "Untitled file"}
-                  </button>
-                  <span className="task-file-size">size: {Math.round(file.size / 1024)} Kilo</span>
-                </div>
-                <button>
-                  <DeleteIcon />
+        <div className="task-comments-list">
+          {task.files!.map((file) => (
+            <div className="task-file">
+              <div>
+                <button
+                  className="task-file-btn"
+                  onClick={() => handleDownload(file.path, file.name)}>
+                  {file.name || "Untitled file"}
                 </button>
+                <span className="task-file-size">size: {Math.round(file.size / 1024)} Kilo</span>
               </div>
-            ))}
-          </div>
-          <FileUpload taskId={task.id} />
-        </>
+              <button onClick={() => handleRemoveFile(file.path)}>
+                <DeleteIcon />
+              </button>
+            </div>
+          ))}
+        </div>
       )}
+      <FileUpload taskId={task.id} />
     </div>
   );
 };
@@ -163,6 +174,11 @@ export const TaskElement = ({ index, task }: Props) => {
   const { showModalWindow, setTaskHandler } = useContext(ModalContext);
   const dispatch = useAppDispatch();
   const { selectedProjectId } = useAppSelector((state) => state.projects);
+  const [taskFoldState, setTaskFoldState] = useState<boolean>(false);
+
+  const onFoldTask = () => {
+    setTaskFoldState(!taskFoldState);
+  };
 
   const onEditTask = () => {
     setTaskHandler(task.id);
@@ -194,12 +210,19 @@ export const TaskElement = ({ index, task }: Props) => {
               <button className="task-actions-btn" onClick={() => onDeleteTask()}>
                 <DeleteIcon size={20} />
               </button>
+              <button className="task-actions-btn" onClick={() => onFoldTask()}>
+                {taskFoldState ? <UnFoldIcon size={20} /> : <FoldIcon size={20} />}
+              </button>
             </div>
           </div>
           <TaskTime task={task} />
-          <p dangerouslySetInnerHTML={{ __html: task.description }}></p>
-          <TaskFiles task={task} />
-          <Comment task={task} />
+          {taskFoldState && (
+            <div className="task-fold">
+              <p dangerouslySetInnerHTML={{ __html: task.description }}></p>
+              <TaskFiles task={task} />
+              <Comment task={task} />
+            </div>
+          )}
         </div>
       )}
     </Draggable>
