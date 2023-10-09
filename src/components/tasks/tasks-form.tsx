@@ -124,6 +124,7 @@ export const TaskForm = ({ task }: { task?: Task }) => {
       status: status || "Queue",
       completionDate: status === "Done" ? Date() : undefined,
       comments: [],
+      files: [],
     };
     // Update the store
     dispatch(addNewTask(selectedProjectId, newTask));

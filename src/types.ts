@@ -8,7 +8,11 @@ export interface Task {
   creationDate: string;
   completionDate?: string;
   priority: "High" | "Medium" | "Low";
-  files?: string[];
+  files: {
+    path: string;
+    size: number;
+    name: string;
+  }[];
   status: "Queue" | "Progress" | "Done";
   comments: {
     id: string;

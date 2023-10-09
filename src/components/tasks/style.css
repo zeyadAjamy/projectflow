@@ -101,6 +101,7 @@ select {
 .task-comments-count {
   font-size: 12px;
   font-weight: 500;
+  margin-top: 20px;
   color: #777;
 }
 
@@ -198,6 +199,41 @@ select {
   cursor: pointer;
   padding: 5px !important;
 }
+
+.files-header { 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.files-number {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: #777;
+}
+
+.task-file {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.task-file-btn {
+  border: 0px;
+  background-color: transparent;
+  font-size: 13px !important;
+  cursor: pointer;
+  padding: 0px !important;
+  margin-bottom: -3px;
+}
+
+.task-file-size {
+  font-size: 12px;
+  font-weight: 500;
+  color: #777;
+}
+
 @media screen and (max-width: 768px) {
   .table {
     grid-template-columns: 1fr;

@@ -7,6 +7,7 @@ import { ModalContext } from "./index";
 import { useAppDispatch, useAppSelector } from "../../hooks/useStore";
 import { removeTask, updateTask } from "../../store/actions/projectActions";
 import { v4 as uuidv4 } from "uuid";
+import { FileUpload } from "./file-upload";
 
 type Props = {
   task: Task;
@@ -97,6 +98,67 @@ const TaskTime = ({ task }: { task: Task }) => (
   </div>
 );
 
+const TaskFiles = ({ task }: { task: Task }) => {
+  const [filesFoldState, setFilesFoldState] = useState<string>("Show files");
+
+  const handleDownload = (fileContent: string, fileName: string) => {
+    if (fileContent) {
+      const a = document.createElement("a");
+      a.href = fileContent;
+      a.download = fileName; // Specify the desired file name here
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  };
+
+  const onFoldFiles = () => {
+    if (filesFoldState === "Show files") {
+      setFilesFoldState("Hide files");
+    } else {
+      setFilesFoldState("Show files");
+    }
+  };
+
+  return (
+    <div className="task-files">
+      <div className="files-header">
+        <div>
+          <span className="task-files-title">Files</span>
+          <span className="files-number">
+            {task.files!.length} {task.files!.length > 1 ? "files" : "file"} attached
+          </span>
+        </div>
+        <button className="comment-fold" onClick={onFoldFiles}>
+          {filesFoldState}
+        </button>
+      </div>
+      {filesFoldState === "Hide files" && (
+        <>
+          <div className="task-comments-list">
+            {task.files!.map((file) => (
+              <div className="task-file">
+                <div>
+                  <button
+                    className="task-file-btn"
+                    onClick={() => handleDownload(file.path, file.name)}>
+                    {file.name || "Untitled file"}
+                  </button>
+                  <span className="task-file-size">size: {Math.round(file.size / 1024)} Kilo</span>
+                </div>
+                <button>
+                  <DeleteIcon />
+                </button>
+              </div>
+            ))}
+          </div>
+          <FileUpload taskId={task.id} />
+        </>
+      )}
+    </div>
+  );
+};
+
 export const TaskElement = ({ index, task }: Props) => {
   const { showModalWindow, setTaskHandler } = useContext(ModalContext);
   const dispatch = useAppDispatch();
@@ -136,6 +198,7 @@ export const TaskElement = ({ index, task }: Props) => {
           </div>
           <TaskTime task={task} />
           <p dangerouslySetInnerHTML={{ __html: task.description }}></p>
+          <TaskFiles task={task} />
           <Comment task={task} />
         </div>
       )}
