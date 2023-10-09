@@ -15,6 +15,18 @@ This is a simple todo app that allows you to add, edit, and delete Projects. You
 - React-dropzone
 - TinyMCE
 
+
+### Why these libraries
+
+- **React**: to create a seamless SPA experience.
+- **Redux**: to manage the state of the app.
+- **React-Redux**: to connect the app to the redux store.
+- **Redux-persist**: to persist the redux store in the local storage. This is to ensure that the data is not lost when the user refreshes the page. `Note: this would be removed and replaced with a database and a backend in a real world app.`
+- **React-Router**: to handle the routing.
+- **React-Icons**: to add icons to the app.
+- **React-dropzone**: file upload functionality.
+- **TinyMCE**: to add a rich text editor to the app.
+
 ## Live Demo 🎥
 
 [Live Demo Link](https://zeyadajamy.github.io/todo/)
