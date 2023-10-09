@@ -1,4 +1,4 @@
-import { createBrowserRouter, Router, Route, HashRouter, Routes } from "react-router-dom";
+import { Route, HashRouter, Routes } from "react-router-dom";
 import { Tasks } from "./tasks";
 import { ErrorPage } from "./404";
 import { Projects } from "./projects";
@@ -12,7 +12,7 @@ export const Layout = () => {
     <Provider store={storeConfig.store}>
       <HelmetProvider>
         <PersistGate loading={null} persistor={storeConfig.persistor}>
-          <HashRouter basename="/todo">
+          <HashRouter>
             <Routes>
               <Route path="/tasks" element={<Tasks />} />
               <Route path="/" element={<Projects />} />

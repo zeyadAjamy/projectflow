@@ -46,20 +46,23 @@ To get a local copy up and running follow these simple example steps.
 ### Setup
 
 1. Clone the project locally.
-2. Go to the project directory.
-3. Run `npm install` to install the dependencies.
-4. Run `npm start` to start the app.
-5. Go to `http://localhost:3000/todo` to see the app in action.
+2. Go to the project directory `todo`.
+3. Run `npm install` to install the dependencies, ensure that you are connected to the internet and have NodeJS installed.
+4. Run `npm start` to start the app. The app will open in your default browser.
+5. Go to `http://localhost:3000/#/todo` to see the app in action.
 
 ### Project Structure
+
+- Two main directories: `public`, `src`.
+- `src` contains all the source code (assets, components, store, hooks).
+- `public` contains the `index.html` file and the `favicon.ico` file.
 
 ```
 ├── public
 │   ├── index.html
 │   └── favicon.ico
-|   └── avatar.png
 ├── src
-│   ├── assets  --> Lottie animations
+│   ├── assets
 │   ├── components
 │   │   ├── 404
 │   │   │   ├── index.tsx
@@ -106,8 +109,29 @@ To get a local copy up and running follow these simple example steps.
 │   └──  tsconfig.json
 ```
 
+## What is missing
+
+### Data is not shared between different devices
+
+- Since we are using a local storage and redux-persist, the data is not shared between different devices. This can be fixed by using a database and a backend.
+- Also for that we need to add authentication and authorization.
+- Use `redux-query` to handle the async actions.
+
+### Add more features
+
+- Add project status (active, archived, completed)
+- Add search functionality
+
+### Create the bot script
+
+- Create a bot script that will create a project and add tasks to it.
+
 ## Author
 
 👤 **Zeyad Ajamy**
 
 - GitHub: [@zeyadajamy](https://github.com/zeyadAjamy)
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!
