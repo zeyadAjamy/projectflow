@@ -10,8 +10,8 @@
 }
 
 .projects h1 {
-  font-size: clamp(50px, 4vw, 400px);
-  margin-bottom: 0px;
+  font-size: clamp(35px, 4vw, 400px);
+  margin-bottom: 10px;
 }
 
 .projects p {
@@ -38,7 +38,7 @@
   align-items: flex-start;
   justify-content: space-between;
   padding: 20px 40px;
-  background-color: rgba(247, 247, 247, 0.8);
+  background-color: rgba(247, 247, 247, 0.5);
 }
 
 .project-card:hover {

@@ -51,6 +51,61 @@ To get a local copy up and running follow these simple example steps.
 4. Run `npm start` to start the app.
 5. Go to `http://localhost:3000/todo` to see the app in action.
 
+### Project Structure
+
+```
+├── public
+│   ├── index.html
+│   └── favicon.ico
+|   └── avatar.png
+├── src
+│   ├── assets  --> Lottie animations
+│   ├── components
+│   │   ├── 404
+│   │   │   ├── index.tsx
+│   │   │   └── styles.ts
+│   │   ├── file-upload
+│   │   │   ├── index.tsx
+│   │   │   └── styles.ts
+│   │   ├── header
+│   │   │   ├── index.tsx
+│   │   │   └── styles.ts
+│   │   ├── not-found
+│   │   │   ├── index.tsx
+│   │   │   └── styles.ts
+│   │   ├── project
+│   │   │   ├── index.tsx
+│   │   │   ├── styles.ts
+│   │   │   ├── project-form.tsx
+│   │   │   └── project-list.tsx
+│   │   ├── tasks
+│   │   │   ├── index.tsx
+│   │   │   ├── styles.ts
+│   │   │   ├── task-form.tsx
+│   │   │   ├── column.tsx
+│   │   │   └──  task-table.tsx
+│   │   ├── tinymce
+│   │   │   └── index.ts
+│   │   ├── window-modal
+│   │   │   ├── index.tsx
+│   │   │   └── styles.ts
+│   │   └── layout.tsx
+│   ├── hooks
+│   │   └── useStore.ts
+│   ├── store
+│   │   ├── actions
+│   │   │   └── projectActions.ts
+│   │   ├── reducers
+│   │   │   └── projectsReducer.ts
+│   │   └── store.ts
+│   ├── types.ts
+│   ├── index.tsx
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── README.md
+│   └──  tsconfig.json
+```
+
 ## Author
 
 👤 **Zeyad Ajamy**

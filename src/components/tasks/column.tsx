@@ -49,7 +49,7 @@ export const Column = ({ column }: Props) => {
   return (
     <div className="column">
       <div className="column-header">
-        <h2> {column.title} </h2>
+        <h3> {column.title} </h3>
         <button className="column-sort">
           {sortDirection === "asc" ? (
             <AscSortIcon onClick={onSort} />
